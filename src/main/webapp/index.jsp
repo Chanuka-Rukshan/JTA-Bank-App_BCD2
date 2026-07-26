@@ -14,5 +14,9 @@
 
 <h1>Welcome to JTA Bank</h1>
 
+<a href="login.jsp">Login</a>
+<br>
+<a href="register.jsp">Register</a>
+
 </body>
 </html>
