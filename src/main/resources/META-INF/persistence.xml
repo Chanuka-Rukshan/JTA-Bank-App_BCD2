@@ -3,17 +3,13 @@
 
     <persistence-unit name="BankPU" transaction-type="JTA">
 
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
         <jta-data-source>jdbc/bank_connection</jta-data-source>
+        
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <property name="hibernate.transaction.jta.platform"
-                      value="org.hibernate.engine.transaction.internal.SunOneJtaPlatform"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
         </properties>
 
     </persistence-unit>
 
-</persistence>
+</persistence>
