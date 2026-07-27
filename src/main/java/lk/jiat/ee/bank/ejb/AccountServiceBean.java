@@ -1,13 +1,13 @@
 package lk.jiat.ee.bank.ejb;
 
-import jakarta.ejb.Stateless;
-import jakarta.ejb.TransactionAttribute;
-import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lk.jiat.ee.bank.ejb.remote.AccountService;
+import lk.jiat.ee.bank.ejb.remote.LoginService;
 import lk.jiat.ee.bank.entity.Account;
 import lk.jiat.ee.bank.entity.AccountType;
+import lk.jiat.ee.bank.entity.User;
 import lk.jiat.ee.bank.exception.AccountNotFoundException;
 import lk.jiat.ee.bank.exception.InsufficientFundsException;
 
@@ -20,6 +20,9 @@ public class AccountServiceBean implements AccountService {
 
     @PersistenceContext(unitName = "BankPU")
     private EntityManager em;
+
+    @EJB
+    private LoginService loginService;
 
     @Override
     public void creditToAccount(String accountNo, BigDecimal amount) {
@@ -43,7 +46,19 @@ public class AccountServiceBean implements AccountService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createAccount(String email, AccountType type, BigDecimal openingBalance) {
+    public Account createAccount(String email, AccountType type, BigDecimal openingBalance) {
+        User user = loginService.findByEmail(email);
+        if (user == null){
+            throw new EJBException("Cannot open account, no such user: " + email);
+        }
+        Account account = new Account();
+        account.setAccountType(type);
+        account.setAccNo(generateAccountNumber(AccountType.SAVINGS));
+        account.setBalance(openingBalance.doubleValue());
+        account.setUser(user);
+        em.persist(account);
+
+        return account;
 
     }
 
