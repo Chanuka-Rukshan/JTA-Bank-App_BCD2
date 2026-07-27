@@ -1,14 +1,17 @@
 package lk.jiat.ee.bank.servlet;
 
 import jakarta.ejb.EJB;
+import jakarta.ejb.EJBException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.jiat.ee.bank.ejb.remote.RegisterService;
+import lk.jiat.ee.bank.exception.DuplicateEmailException;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 @WebServlet("/register")
 public class Register extends HttpServlet {
@@ -28,7 +31,7 @@ public class Register extends HttpServlet {
 
             req.getRequestDispatcher("login.jsp").forward(req,resp);
 
-        }catch (Exception e){
+        }catch (DuplicateEmailException e){
 
             req.setAttribute("error",e.getMessage());
             req.getRequestDispatcher("register.jsp").forward(req,resp);
