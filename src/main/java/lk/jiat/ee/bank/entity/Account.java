@@ -6,6 +6,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "accounts")
+@NamedQueries({
+        @NamedQuery(name = "Account.findByUserEmail",
+                query = "SELECT a FROM Account a WHERE a.user.email=:email ORDER BY a.id"),
+
+        @NamedQuery(name = "Account.findByAccountNo",
+                query = "SELECT a FROM Account a WHERE a.accNo=:accountNo")
+})
 public class Account {
 
     @Id
