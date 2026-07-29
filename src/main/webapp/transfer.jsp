@@ -113,23 +113,12 @@
                     </div>
                 </div>
 
-                <!-- Destination Account Selection -->
+                <!-- Destination Account Input (FIXED) -->
                 <div>
                     <label for="destinationAccountNo" class="block text-sm font-semibold text-gray-700 mb-2">To Account (Destination)</label>
                     <div class="relative">
-                        <select name="destinationAccountNo" id="destinationAccountNo" required
-                                class="block w-full pl-4 pr-10 py-3 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 rounded-xl appearance-none bg-gray-50 cursor-pointer transition">
-                            <option value="" disabled selected>-- Choose destination account --</option>
-
-                            <!-- JSTL Loop for Accounts -->
-                            <c:forEach var="account" items="${requestScope.accounts}">
-                                <option value="${account.accNo}">${account.accNo}</option>
-                            </c:forEach>
-
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
+                        <input type="text" id="destinationAccountNo" name="destinationAccountNo" placeholder="Enter account number" required
+                               class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-lg font-semibold font-mono bg-gray-50">
                     </div>
                 </div>
 

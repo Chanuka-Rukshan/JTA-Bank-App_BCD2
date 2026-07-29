@@ -5,4 +5,5 @@ public enum TransactionType {
     WITHDRAW,
     CREDITED, // Transfer-In
     DEBITED // Transfer-out
+
 }
